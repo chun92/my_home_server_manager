@@ -1,6 +1,5 @@
 import os
 import datetime
-import psutil
 import matplotlib.pyplot as plt
 
 LOG_DIR = '../../log'
