@@ -34,7 +34,8 @@ def reboot_stable_diffusion():
     global CONFIG
     try:
         kill_process_on_port(CONFIG['port'])
-        wait_for_port(CONFIG['port'], timeout=60)
+        time.sleep(30)
+        # wait_for_port(CONFIG['port'], timeout=60)
         os.chdir(CONFIG['home'])
         subprocess.Popen(['/bin/bash', CONFIG['run']])
         time.sleep(5)
