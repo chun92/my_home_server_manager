@@ -24,12 +24,13 @@
             $('#download-form').submit(function (event) {
                 event.preventDefault();
                 var url = $('#url').val();
+                var file_name = $('#file_name').val();
                 var progress_bar = $('#download-progress');
                 var progress_percent = $('#download-progress-percent');
                 $.ajax({
                     url: $(this).attr('action'),
                     method: 'POST',
-                    data: {url: url},
+                    data: {url: url, file_name: file_name},
                     xhr: function () {
                         var xhr = new window.XMLHttpRequest();
                         xhr.addEventListener("progress", function (evt) {
@@ -37,7 +38,7 @@
                             var data = evt.currentTarget.response;
                             let current = data.match(/"current":\s*(\d+)/g).pop().match(/\d+/)[0];
                             let total = data.match(/"total":\s*(\d+)/g).pop().match(/\d+/)[0];
-                            var percentComplete = Math.round(current / total);
+                            var percentComplete = current / total;
                             percentComplete = parseInt(percentComplete * 100);
                             
                             progress_bar.css('width', percentComplete + '%');
@@ -61,6 +62,8 @@
     <select id="download-select"></select><br><br>
     <label for="url">File URL:</label><br>
     <input type="text" id="url" name="url" required><br><br>
+    <label for="file_name">File Name:</label><br>
+    <input type="text" id="file_name" name="file_name"><br><br>
     <input type="submit" value="Download">
   </form>
   <div style="margin-top: 20px;">

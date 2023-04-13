@@ -22,6 +22,10 @@ def download(key):
     with APP.app_context():
         url = request.form['url']
         file_name = url.split('/')[-1]
+        if request.form['file_name']:
+            file_name = request.form['file_name']
+            if not file_name.endswith('.'):
+                file_name += '.safetensors'
         download_path = DOWNLOAD_PATH[key]
         file_path = os.path.join(download_path, file_name)
 
