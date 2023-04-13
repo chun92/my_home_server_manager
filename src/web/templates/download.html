@@ -37,7 +37,7 @@
                             var data = evt.currentTarget.response;
                             let current = data.match(/"current":\s*(\d+)/g).pop().match(/\d+/)[0];
                             let total = data.match(/"total":\s*(\d+)/g).pop().match(/\d+/)[0];
-                            var percentComplete = current / total;
+                            var percentComplete = Math.round(current / total);
                             percentComplete = parseInt(percentComplete * 100);
                             
                             progress_bar.css('width', percentComplete + '%');
