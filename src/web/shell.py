@@ -27,6 +27,9 @@ def kill_process_on_port(port):
         pid = int(subprocess.check_output(["lsof", "-t", "-i", f":{port}"]))
         os.kill(pid, signal.SIGTERM)
         print(f"Process running on port {port} has been terminated.")
+        waiting_time = 10
+        print(f"Waiting {waiting_time} seconds")
+        time.sleep(waiting_time)
     except subprocess.CalledProcessError:
         print(f"No process running on port {port}.")
 
@@ -34,10 +37,11 @@ def reboot_stable_diffusion():
     global CONFIG
     try:
         kill_process_on_port(CONFIG['port'])
-        time.sleep(30)
         # wait_for_port(CONFIG['port'], timeout=60)
+        original_dir = os.getcwd();
         os.chdir(CONFIG['home'])
         subprocess.Popen(['/bin/bash', CONFIG['run']])
+        os.chdir(original_dir)
         time.sleep(5)
         return True
     except TimeoutError:
