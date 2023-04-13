@@ -1,0 +1,6 @@
+{
+    "server": {
+        "host": "your-host-ip",
+        "port": "your-port"
+    }
+}

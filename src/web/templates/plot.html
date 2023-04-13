@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>System Information</title>
+  </head>
+  <body>
+    <h1>System Information</h1>
+    <form action="{{ url_for('plot') }}" method="GET">
+      <label for="max_time">Max Time:</label>
+      <input type="text" id="max_time" name="max_time" value="1">
+      <input type="submit" value="Update">
+    </form>
+    <img src="{{ url_for('static', filename='plots.png') }}" alt="System Information">
+  </body>
+</html>

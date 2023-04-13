@@ -1,0 +1,4 @@
+config/config.json
+log/*
+src/web/__pycache__
+src/web/static/*
