@@ -19,7 +19,7 @@ def read_config():
 
 @app.route('/')
 def index():
-    return 'Hello, World!'
+    return render_template('index.html')
 
 @app.route('/plot')
 def plot():

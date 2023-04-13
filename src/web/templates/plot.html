@@ -5,6 +5,7 @@
   </head>
   <body>
     <h1>System Information</h1>
+    <button onclick="location.href='/'">Home</button>
     <form action="{{ url_for('plot') }}" method="GET">
       <label for="max_time">Max Time:</label>
       <input type="text" id="max_time" name="max_time" value="1">
