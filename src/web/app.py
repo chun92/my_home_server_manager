@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request
 from plot import plot_graph
 from download import options, download, set_download_config
+from shell import reboot_stable_diffusion, set_shell_config
 import json
 
 app = Flask(__name__)
@@ -14,6 +15,7 @@ def read_config():
         with open(CONFIG_PATH, 'r') as f:
             config = json.load(f)
         set_download_config(app, config['download'])
+        set_shell_config(config['stable_diffusion'])
         global HOST
         HOST = config['server']
 
@@ -39,6 +41,14 @@ def action_options():
 @app.route('/action/download/<key>', methods=['POST'])
 def action_download(key):
     return download(key)
+
+@app.route('/action/restart')
+def action_restart():
+    result = reboot_stable_diffusion()
+    if result:
+        return 'OK'
+    else:
+        return 'NO'
 
 if __name__ == '__main__':
     read_config()

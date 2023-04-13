@@ -3,10 +3,31 @@
 <head>
     <title>Server Managing Page</title>
     <link rel="shortcut icon" href="favicon.ico">
+    <script>
+        function restart() {
+            // Change button opacity
+            document.getElementById("restart-btn").style.opacity = "0.5";
+            
+            // Call reboot_stable_diffusion function
+            fetch('/action/restart')
+                .then(function(response) {
+                    // Change button color when function is completed
+                    document.getElementById("restart-btn").style.opacity = "1.0";
+                    if (response === "OK") {
+                        document.getElementById("restart-btn").style.backgroundColor = "green";
+                        alert("Stable Diffusion has been restarted successfully!");
+                    } else {
+                        document.getElementById("restart-btn").style.backgroundColor = "red";
+                        alert("Failed to restart Stable Diffusion. Please retry");
+                    }
+                });
+        }
+    </script>
 </head>
 <body>
     <h1>Server Managing Page</h1>
     <button onclick="location.href='/plot'">Monitor System</button>
     <button onclick="location.href='/download'">Download</button>
+    <button id="restart-btn" onclick="restart()">Restart Stable Diffusion</button>
 </body>
 </html>
