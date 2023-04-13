@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download File</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // load the options for the dropdown
+            $.getJSON('/action/options', function (data) {
+              var dropdown = $('#download-select');
+              $.each(data, function (key, value) {
+                  dropdown.append($('<option></option>').attr('value', key).text(key));
+              });
+              dropdown.change(function () {
+                  var selected = $(this).val();
+                  $('#download-form').attr('action', '/action/download/' + selected);
+              });
+              // set the default value
+              var defaultOption = dropdown.find('option:first');
+              defaultOption.prop('selected', true);
+              dropdown.trigger('change');
+            });
+
+            $('#download-form').submit(function (event) {
+                event.preventDefault();
+                var url = $('#url').val();
+                var progress_bar = $('#download-progress');
+                var progress_percent = $('#download-progress-percent');
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: {url: url},
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.addEventListener("progress", function (evt) {
+                          if (evt.currentTarget.response) {
+                            var data = evt.currentTarget.response;
+                            let current = data.match(/"current":\s*(\d+)/g).pop().match(/\d+/)[0];
+                            let total = data.match(/"total":\s*(\d+)/g).pop().match(/\d+/)[0];
+                            var percentComplete = current / total;
+                            percentComplete = parseInt(percentComplete * 100);
+                            
+                            progress_bar.css('width', percentComplete + '%');
+                            progress_percent.text(percentComplete + '%');
+                          }
+                        }, false);
+                        return xhr;
+                    },
+                    dataType: 'json'
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Download File</h1>
+<div style="display: flex">
+  <form id="download-form" action="" method="POST">
+    <label for="download-select">Model:</label>
+    <select id="download-select"></select><br><br>
+    <label for="url">File URL:</label><br>
+    <input type="text" id="url" name="url" required><br><br>
+    <input type="submit" value="Download">
+  </form>
+  <div style="margin-top: 20px;">
+      <div class="progress">
+          <div id="download-progress" class="progress-bar" role="progressbar" style="margin-left: 10px; width: 0%;"
+              aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <div id="download-progress-percent"></div>
+  </div>
+</div>
+</body>
+</html>
