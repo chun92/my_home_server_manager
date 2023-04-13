@@ -44,9 +44,6 @@ def add_subplot(index, slot, time, data, name, unit):
     plt.xlabel('min')
     plt.ylabel(unit)
     plt.xticks([])
-    x_ticks = list(range(0, len(time), slot)) + [len(time) - 1]
-    x_tick_labels = [label[3:].replace(' ', ':') for i, label in enumerate(time) if i in x_ticks]
-    plt.xticks(x_ticks, x_tick_labels)
 
 def plot_graph(hours=1):
     data = get_data(hours)

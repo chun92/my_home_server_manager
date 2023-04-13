@@ -13,10 +13,9 @@
                 .then(function(response) {
                     // Change button color when function is completed
                     document.getElementById("restart-btn").style.opacity = "1.0";
-                    console.log(response);
                     if (response.statusText === "OK") {
                         document.getElementById("restart-btn").style.backgroundColor = "green";
-                        window.open("http://192.168.35.200:7777");
+                        alert("Stable Diffusion has been restarted successfully!");
                     } else {
                         document.getElementById("restart-btn").style.backgroundColor = "red";
                         alert("Failed to restart Stable Diffusion. Please retry");
