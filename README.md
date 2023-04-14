@@ -21,7 +21,7 @@ The following are required to run the program:
 * To run the web server, navigate to `./src/web` and execute `python app.py`. We recommend running both the logger and web server on Ubuntu using systemctl.
 
 # Usage
-##Home
+## Home
 ![image](https://user-images.githubusercontent.com/3786258/231930973-4ca5aeac-807f-4790-82cd-c1ad3bced46d.png)
 * Main page
 * Click the "Monitor System" button to go to the system management page
