@@ -2,5 +2,17 @@
     "server": {
         "host": "your-host-ip",
         "port": "your-port"
+    },
+    "download": {
+        "model": "your/path",
+        "vae": "your/path",
+        "lora": "your/path",
+        "controlnet": "your/path",
+        "embeddings": "your/path"
+    },
+    "stable_diffusion": {
+        "home": "your/sd/home",
+        "run": "webui.sh",
+        "port": "sd-port"
     }
 }
